@@ -1,4 +1,17 @@
+
 # RestaurantApp — Guide de déploiement
+
+
+## Configuration
+
+1. Copier le fichier exemple :
+cp src/main/resources/config.properties.example src/main/resources/config.properties
+
+2. Remplir vos identifiants MySQL dans `config.properties`
+
+3. Compiler et déployer :
+mvn clean package
+copy target\RestaurantApp.war C:\apache-tomcat-...\webapps\
 
 ## Prérequis
 

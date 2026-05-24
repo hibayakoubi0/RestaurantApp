@@ -1,39 +1,34 @@
 package com.restaurant.util;
 
-
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-
-
-
+import java.util.Properties;
 
 public class DBConnection {
 
+    private static String URL;
+    private static String USER;
+    private static String PASS;
 
-    // Paramètres de connexion — à adapter selon votre config
-    private static final String URL  =
-        "jdbc:mysql://localhost:3306/restaurant_db?useSSL=false" +
-        "&serverTimezone=UTC&characterEncoding=UTF-8";
-    private static final String USER = "root";
-    private static final String PASS = "newpassword123";  //  mot de passe MySQL
-
-
-    // Chargement du driver (optionnel depuis Java 6)
     static {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.err.println("Driver MySQL introuvable : " + e.getMessage());
+        try (InputStream input = DBConnection.class
+                .getClassLoader()
+                .getResourceAsStream("config.properties")) {
+
+            Properties prop = new Properties();
+            prop.load(input);
+
+            URL  = prop.getProperty("db.url");
+            USER = prop.getProperty("db.user");
+            PASS = prop.getProperty("db.password");
+
+        } catch (Exception e) {
+            throw new RuntimeException("Impossible de charger config.properties", e);
         }
     }
 
-
-    /**
-     * Retourne une connexion à la base de données.
-     * Chaque DAO crée et ferme sa propre connexion.
-     */
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws Exception {
         return DriverManager.getConnection(URL, USER, PASS);
     }
 }
