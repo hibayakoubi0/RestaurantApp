@@ -1,10 +1,17 @@
 package com.restaurant.dao;
 
 
-import com.restaurant.model.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.restaurant.model.Commande;
+import com.restaurant.model.LigneCommande;
 import com.restaurant.util.DBConnection;
-import java.sql.*;
-import java.util.*;
 
 
 public class CommandeDAO {
@@ -25,6 +32,8 @@ public class CommandeDAO {
                 c.setLignes(getLignes(c.getId()));
                 list.add(c);
             }
+        } catch (Exception ex) {
+            System.getLogger(CommandeDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return list;
     }
@@ -40,6 +49,8 @@ public class CommandeDAO {
             ps.executeUpdate();
             ResultSet keys = ps.getGeneratedKeys();
             if (keys.next()) return keys.getInt(1);
+        } catch (Exception ex) {
+            System.getLogger(CommandeDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return -1;
     }
@@ -55,6 +66,8 @@ public class CommandeDAO {
             ps.setInt(3, l.getQuantite());
             ps.setDouble(4, l.getPrixUnitaire());
             ps.executeUpdate();
+        } catch (Exception ex) {
+            System.getLogger(CommandeDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
@@ -78,6 +91,8 @@ public class CommandeDAO {
                 l.setPrixUnitaire(rs.getDouble("prix_unitaire"));
                 list.add(l);
             }
+        } catch (Exception ex) {
+            System.getLogger(CommandeDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return list;
     }
@@ -90,6 +105,8 @@ public class CommandeDAO {
             ps.setString(1, statut);
             ps.setInt(2, id);
             ps.executeUpdate();
+        } catch (Exception ex) {
+            System.getLogger(CommandeDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 }

@@ -1,10 +1,16 @@
 package com.restaurant.dao;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.restaurant.model.TableRestaurant;
 import com.restaurant.util.DBConnection;
-import java.sql.*;
-import java.util.*;
 
 
 public class TableDAO {
@@ -24,6 +30,8 @@ public class TableDAO {
                 t.setStatut(rs.getString("statut"));
                 list.add(t);
             }
+        } catch (Exception ex) {
+            System.getLogger(TableDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return list;
     }
@@ -43,6 +51,8 @@ public class TableDAO {
                 t.setStatut(rs.getString("statut"));
                 return t;
             }
+        } catch (Exception ex) {
+            System.getLogger(TableDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return null;
     }
@@ -57,6 +67,8 @@ public class TableDAO {
             ps.setInt(2, t.getCapacite());
             ps.setString(3, t.getStatut());
             ps.executeUpdate();
+        } catch (Exception ex) {
+            System.getLogger(TableDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
@@ -71,6 +83,8 @@ public class TableDAO {
             ps.setString(3, t.getStatut());
             ps.setInt(4, t.getId());
             ps.executeUpdate();
+        } catch (Exception ex) {
+            System.getLogger(TableDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
@@ -81,6 +95,8 @@ public class TableDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
+        } catch (Exception ex) {
+            System.getLogger(TableDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 }

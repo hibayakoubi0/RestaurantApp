@@ -1,10 +1,16 @@
 package com.restaurant.dao;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.restaurant.model.Plat;
 import com.restaurant.util.DBConnection;
-import java.sql.*;
-import java.util.*;
 
 
 public class PlatDAO {
@@ -25,6 +31,8 @@ public class PlatDAO {
                 p.setCategorie(rs.getString("categorie"));
                 list.add(p);
             }
+        } catch (Exception ex) {
+            System.getLogger(PlatDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return list;
     }
@@ -45,6 +53,8 @@ public class PlatDAO {
                 p.setCategorie(rs.getString("categorie"));
                 return p;
             }
+        } catch (Exception ex) {
+            System.getLogger(PlatDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return null;
     }
@@ -60,6 +70,8 @@ public class PlatDAO {
             ps.setDouble(3, p.getPrix());
             ps.setString(4, p.getCategorie());
             ps.executeUpdate();
+        } catch (Exception ex) {
+            System.getLogger(PlatDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
@@ -75,6 +87,8 @@ public class PlatDAO {
             ps.setString(4, p.getCategorie());
             ps.setInt(5, p.getId());
             ps.executeUpdate();
+        } catch (Exception ex) {
+            System.getLogger(PlatDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 
@@ -85,6 +99,8 @@ public class PlatDAO {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.executeUpdate();
+        } catch (Exception ex) {
+            System.getLogger(PlatDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
 }
